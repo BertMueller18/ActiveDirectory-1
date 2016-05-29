@@ -1,0 +1,1 @@
+﻿Get-ADComputer -SearchBase 'OU=Servers,DC=domain,DC=tld' -filter * -Properties ManagedBy,Description | Where-Object { $_.Description -eq $null } | Select-Object -Property Name,@{L='Managed By';E={$(Get-AdUser $_.ManagedBy).SamAccountName}} | FT #Export-Csv "$(get-temp)\baddesc.csv"
